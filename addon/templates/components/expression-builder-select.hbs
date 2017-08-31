@@ -1,0 +1,9 @@
+<select onchange={{action "onchange" value="target.value"}}>
+  {{#each options as |option|}}
+    {{#if option.disabled}}
+      <option disabled selected={{unless selectedOption true false}} value={{option.value}}>{{option.text}}</option>
+    {{else}}
+      <option selected={{is-equal selectedOption option.value}} value={{option.value}}>{{option.text}}</option>
+    {{/if}}
+  {{/each}}
+</select>

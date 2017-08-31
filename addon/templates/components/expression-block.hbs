@@ -1,0 +1,14 @@
+<div class="block-type">
+  {{#if hasOptions}}
+    {{component selectComponent options=typeOptions typeChanged=(action "typeChanged")}}
+  {{else}}
+    {{emptyText}}
+  {{/if}}
+</div>
+{{#if hasType}}
+  <div class="block-value">
+    {{#if hasOptions}}
+      {{component selectComponent options=valueOptions valueChanged=(action "valueChanged")}}
+    {{/if}}
+  </div>
+{{/if}}
