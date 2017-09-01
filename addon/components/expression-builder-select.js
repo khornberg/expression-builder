@@ -3,7 +3,7 @@ import layout from '../templates/components/expression-builder-select';
 
 export default Ember.Component.extend({
   layout,
-
+  tagName: '',
   selectedOption: Ember.computed('options', function() {
     Ember.set(this, '_selectedOption', undefined);
     return Ember.get(this, '_selectedOption');
@@ -12,9 +12,9 @@ export default Ember.Component.extend({
   actions: {
     onchange(value) {
       Ember.set(this, '_selectedOption', value);
-      let typeChangeAction = Ember.get(this, 'typeChanged') || Ember.get(this, 'valueChanged');
-      if (typeChangeAction) {
-        typeChangeAction(Ember.get(this, '_selectedOption'));
+      let changeAction = Ember.get(this, 'changeAction');
+      if (changeAction) {
+        changeAction(Ember.get(this, '_selectedOption'));
       }
     }
   }

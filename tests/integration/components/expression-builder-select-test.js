@@ -21,7 +21,7 @@ test('select renders option as disabled', function(assert) {
 
 test('select renders option as selected', function(assert) {
   this.set('options', [{'text': 'Select type', 'value': 1}, {'text': 'Select type2', 'value': 0}]);
-  this.render(hbs`{{expression-builder-select options=options selectedOption=0}}`);
+  this.render(hbs`{{expression-builder-select options=options selected=0}}`);
   assert.equal(this.$('option:selected').val(), 0);
 });
 
@@ -55,9 +55,9 @@ test('changing type triggers type change action', function(assert) {
   this.set('options', [{'text': 'Select type', 'value': 1}, {'text': 'xyz', 'value': 2}]);
   let changed = false;
   this.set('typeChanged', () => { changed = true });
-  this.render(hbs`{{expression-builder-select options=options selectedOption=1 typeChanged=typeChanged}}`);
+  this.render(hbs`{{expression-builder-select options=options selected=1 changeAction=typeChanged}}`);
   assert.equal(this.$('option:selected').val(), 1);
-  this.$(`option[value="${2}"]`).prop('selected',true).trigger('change');
+  this.$(`option[value="${2}"]`).prop('selected', true).trigger('change');
   assert.equal(this.$('option:selected').val(), 2);
   assert.ok(changed);
 });
@@ -66,9 +66,9 @@ test('changing value triggers value change action', function(assert) {
   this.set('options', [{'text': 'Select type', 'value': 1}, {'text': 'xyz', 'value': 2}]);
   let changed = false;
   this.set('valueChanged', () => { changed = true });
-  this.render(hbs`{{expression-builder-select options=options selectedOption=1 valueChanged=valueChanged}}`);
+  this.render(hbs`{{expression-builder-select options=options selected=1 changeAction=valueChanged}}`);
   assert.equal(this.$('option:selected').val(), 1);
-  this.$(`option[value="${2}"]`).prop('selected',true).trigger('change');
+  this.$(`option[value="${2}"]`).prop('selected', true).trigger('change');
   assert.equal(this.$('option:selected').val(), 2);
   assert.ok(changed);
 });

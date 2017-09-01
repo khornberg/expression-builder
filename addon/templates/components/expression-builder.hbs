@@ -1,0 +1,11 @@
+<div class="expression-builder">
+  <div class="expression-blocks">
+  {{#each blocks as |block|}}
+    {{expression-block options=options operators=operators update=(action "update") block=block}}
+  {{/each}}
+  {{#if hasOptions}}
+    <button class='add' {{action "add"}}>Add Block</button>
+  {{/if}}
+  </div>
+  <div class="expression-result">{{expression}}</div>
+</div>

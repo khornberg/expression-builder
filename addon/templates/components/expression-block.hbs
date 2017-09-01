@@ -1,14 +1,21 @@
-<div class="block-type">
-  {{#if hasOptions}}
-    {{component selectComponent options=typeOptions typeChanged=(action "typeChanged")}}
-  {{else}}
-    {{emptyText}}
-  {{/if}}
-</div>
-{{#if hasType}}
-  <div class="block-value">
+<div class="block-{{id}}">
+  <div class="block-type">
     {{#if hasOptions}}
-      {{component selectComponent options=valueOptions valueChanged=(action "valueChanged")}}
+      {{component typeComponent options=typeOptions changeAction=(action "typeChanged") selected=block.type}}
+    {{else}}
+      {{emptyText}}
     {{/if}}
   </div>
-{{/if}}
+  {{#if hasType}}
+    <div class="block-value">
+      {{#if hasOptions}}
+        {{component valueComponent options=valueOptions changeAction=(action "valueChanged") selected=block.value}}
+      {{/if}}
+    </div>
+  {{/if}}
+  {{#if hasType (if hasValue true false)}}
+    <div class="block-operator">
+      {{component operatorComponent options=operatorOptions changeAction=(action "operatorChanged") selected=block.operator}}
+     </div>
+  {{/if}}
+</div>
