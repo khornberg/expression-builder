@@ -67,7 +67,7 @@ export default Ember.Component.extend({
   actions: {
     typeChanged(value) {
       if (value) {
-        Ember.set(this, 'type', value);
+        Ember.setProperties(this, {'type': value, 'value': undefined});
         this.updateBuilder();
       }
     },

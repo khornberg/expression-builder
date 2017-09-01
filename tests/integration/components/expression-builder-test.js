@@ -72,3 +72,16 @@ test('can add another block', function(assert) {
   this.$('.expression-blocks > div:nth-child(3) > .block-value option[value="1"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.expression-result').text().trim(), 'y:3 OR x:1 OR x:1');
 });
+
+test('values change based on type', function(assert) {
+  this.set('options', {'x': [1], 'y': [2, 3]});
+  this.set('operators', ['OR', 'AND']);
+  this.render(hbs`{{expression-builder options=options operators=operators}}`);
+  this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
+  this.$('.block-value option[value="3"]').prop('selected', true).trigger('change');
+  assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
+  assert.equal(this.$('.block-value select > option:selected').text().trim(), '3');
+  this.$('.block-type option[value="x"]').prop('selected', true).trigger('change');
+  assert.equal(this.$('.block-type select > option:selected').text().trim(), 'x');
+  assert.equal(this.$('.block-value select > option:selected').text().trim(), 'Select value');
+});
