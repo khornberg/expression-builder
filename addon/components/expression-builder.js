@@ -5,6 +5,7 @@ export default Ember.Component.extend({
   layout,
   tagName: '',
   addComponent: 'expression-add',
+  resultComponent: 'expression-result',
   hasOptions: Ember.computed.notEmpty('options'),
 
   expression: Ember.computed('blocks.@each.{id,type,value,operator}', function() {
