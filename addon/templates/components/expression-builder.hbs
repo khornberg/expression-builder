@@ -4,7 +4,7 @@
     {{expression-block options=options operators=operators update=(action "update") block=block}}
   {{/each}}
   {{#if hasOptions}}
-    <button class='add' {{action "add"}}>Add Block</button>
+    {{component addComponent add=(action "add")}}
   {{/if}}
   </div>
   <div class="expression-result">{{expression}}</div>

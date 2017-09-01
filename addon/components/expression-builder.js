@@ -4,7 +4,7 @@ import layout from '../templates/components/expression-builder';
 export default Ember.Component.extend({
   layout,
   tagName: '',
-
+  addComponent: 'expression-add',
   hasOptions: Ember.computed.notEmpty('options'),
 
   expression: Ember.computed('blocks.@each.{id,type,value,operator}', function() {
