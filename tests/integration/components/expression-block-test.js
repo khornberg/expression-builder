@@ -8,14 +8,14 @@ moduleForComponent('expression-block', 'Integration | Component | expression blo
 test('empty block empty block text', function(assert) {
   this.render(hbs`{{expression-block id=123}}`);
   assert.equal(this.$().text().trim(), 'Pass options to select type');
-  assert.ok(this.$('.block-123').length);
+  assert.ok(this.$('.block[data-id="123"]').length);
 });
 
 test('block without id generates one', function(assert) {
   this.render(hbs`{{expression-block}}`);
   assert.equal(this.$().text().trim(), 'Pass options to select type');
-  let cls = this.$('div:first-child').attr('class');
-  assert.ok(cls.match(/block-ember\d+/));
+  let cls = this.$('div:first-child').attr('data-id');
+  assert.ok(cls.match(/ember\d+/));
 });
 
 test('empty block does show if there are no options', function(assert) {

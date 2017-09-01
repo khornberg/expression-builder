@@ -1,4 +1,4 @@
-<div class="block-{{id}}">
+<div class="block" data-id="{{id}}">
   <div class="block-type">
     {{#if hasOptions}}
       {{component typeComponent options=typeOptions changeAction=(action "typeChanged") selected=block.type}}
@@ -13,9 +13,9 @@
       {{/if}}
     </div>
   {{/if}}
-  {{#if hasType (if hasValue true false)}}
-    <div class="block-operator">
-      {{component operatorComponent options=operatorOptions changeAction=(action "operatorChanged") selected=block.operator}}
-     </div>
-  {{/if}}
 </div>
+{{#if hasType (if hasValue true false)}}
+  <div class="block-operator">
+    {{component operatorComponent options=operatorOptions changeAction=(action "operatorChanged") selected=block.operator}}
+   </div>
+{{/if}}

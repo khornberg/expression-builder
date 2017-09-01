@@ -63,13 +63,13 @@ test('can add another block', function(assert) {
   this.$('.block-value option[value="3"]').prop('selected', true).trigger('change');
   this.$('.block-operator option[value="OR"]').prop('selected', true).trigger('change');
   Ember.run(() => document.querySelector('.add').click());
-  this.$('.expression-blocks > div:nth-child(2) > .block-type option[value="x"]').prop('selected', true).trigger('change');
-  this.$('.expression-blocks > div:nth-child(2) > .block-value option[value="1"]').prop('selected', true).trigger('change');
-  this.$('.expression-blocks > div:nth-child(2) > .block-operator option[value="OR"]').prop('selected', true).trigger('change');
-  assert.equal(this.$('.expression-result').text().trim(), 'y:3 OR x:1');
-  Ember.run(() => document.querySelector('.add').click());
   this.$('.expression-blocks > div:nth-child(3) > .block-type option[value="x"]').prop('selected', true).trigger('change');
   this.$('.expression-blocks > div:nth-child(3) > .block-value option[value="1"]').prop('selected', true).trigger('change');
+  this.$('.expression-blocks > div:nth-child(4) option[value="OR"]').prop('selected', true).trigger('change');
+  assert.equal(this.$('.expression-result').text().trim(), 'y:3 OR x:1');
+  Ember.run(() => document.querySelector('.add').click());
+  this.$('.expression-blocks > div:nth-child(5) > .block-type option[value="x"]').prop('selected', true).trigger('change');
+  this.$('.expression-blocks > div:nth-child(5) > .block-value option[value="1"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.expression-result').text().trim(), 'y:3 OR x:1 OR x:1');
 });
 
