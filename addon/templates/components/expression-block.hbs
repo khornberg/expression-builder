@@ -19,3 +19,8 @@
     {{component operatorComponent options=operatorOptions changeAction=(action "operatorChanged") selected=block.operator}}
    </div>
 {{/if}}
+{{#if delete}}
+  <div class="block-action">
+    {{component deleteComponent delete=(action delete)}}
+  </div>
+{{/if}}

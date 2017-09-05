@@ -1,7 +1,7 @@
 <div class="expression-builder">
   <div class="expression-blocks">
-  {{#each blocks as |block|}}
-    {{expression-block options=options operators=operators update=(action "update") block=block}}
+  {{#each blocks as |block index|}}
+    {{expression-block options=options operators=operators update=(action "update") delete=(action "delete" index) block=block}}
   {{/each}}
   {{#if hasOptions}}
     {{component addComponent add=(action "add")}}
