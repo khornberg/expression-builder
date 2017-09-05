@@ -16,7 +16,7 @@
     "build": "ember build",
     "start": "ember server",
     "test": "ember try:each",
-    "docs": "rsync -av --progress dist/ docs --exclude tests"
+    "docs": "ember build -p && rm -r docs && rsync -av --progress dist/ docs --exclude tests"
   },
   "dependencies": {
     "ember-cli-babel": "^6.3.0",
