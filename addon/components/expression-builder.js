@@ -50,6 +50,11 @@ export default Ember.Component.extend({
     add() {
       let blocks = Ember.get(this, 'blocks');
       blocks.pushObject({});
+    },
+
+    delete(index) {
+      let blocks = Ember.get(this, 'blocks');
+      blocks.removeAt(index);
     }
   }
 });
