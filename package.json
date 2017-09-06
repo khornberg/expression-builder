@@ -1,9 +1,13 @@
 {
   "name": "expression-builder",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "1.0.0",
+  "description": "Build expressions with a GUI",
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "expression",
+    "formula",
+    "formulae",
+    "builder"
   ],
   "license": "MIT",
   "author": "",
