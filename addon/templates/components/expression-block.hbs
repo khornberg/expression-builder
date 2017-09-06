@@ -1,11 +1,15 @@
 <div class="block" data-id="{{id}}">
-  <div class="block-type">
-    {{#if hasOptions}}
-      {{component typeComponent options=typeOptions changeAction=(action "typeChanged") selected=block.type}}
-    {{else}}
-      {{emptyText}}
-    {{/if}}
-  </div>
+  {{#if block.wrapper}}
+    <div class="block-wrapper">{{block.wrapper}}</div>
+  {{else}}
+    <div class="block-type">
+      {{#if hasOptions}}
+        {{component typeComponent options=typeOptions changeAction=(action "typeChanged") selected=block.type}}
+      {{else}}
+        {{emptyText}}
+      {{/if}}
+    </div>
+  {{/if}}
   {{#if hasType}}
     <div class="block-value">
       {{#if hasOptions}}

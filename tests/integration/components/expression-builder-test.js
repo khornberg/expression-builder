@@ -101,3 +101,38 @@ test('can delete block', function(assert) {
   Ember.run(() => document.querySelector('.expression-blocks > div:nth-child(6) .delete').click());
   assert.equal(this.$('.expression-result').text().trim(), 'y:3');
 });
+
+test('blocks with wrapper blocks show wrapper content', function(assert) {
+  let left_wrapper_block = { wrapper: '(' };
+  let block = {id: '1', value: 1, type: 'x', operator: undefined};
+  let right_wrapper_block = { wrapper: ')' };
+  let blocks = Ember.A([left_wrapper_block, block, right_wrapper_block]);
+  this.set('blocks', blocks);
+  this.set('options', {'x': [1], 'y': [2, 3]});
+  this.set('operators', ['OR', 'AND']);
+  this.render(hbs`{{expression-builder blocks=blocks options=options operators=operators}}`);
+  assert.equal(this.$('.expression-result').text().trim(), '( x:1 )');
+  assert.equal(this.$('.expression-blocks > div:nth-child(1)').text().trim(), '(');
+  assert.notEqual(this.$('.expression-blocks > div:nth-child(2)').text().trim(), 'Delete');
+  assert.notEqual(this.$('.expression-blocks > div:nth-child(2)').text().trim(), '()');
+  assert.ok(this.$('.expression-blocks > div:nth-child(2)').text().trim().startsWith('Select'));
+  assert.equal(this.$('.expression-blocks > div:nth-child(5)').text().trim(), ')');
+});
+
+test('add parentheses wraps current expression with parentheses', function(assert) {
+  let block = {id: '1', value: 1, type: 'x', operator: undefined};
+  let blocks = Ember.A([block]);
+  this.set('blocks', blocks);
+  this.set('options', {'x': [1], 'y': [2, 3]});
+  this.set('operators', ['OR', 'AND']);
+  this.render(hbs`{{expression-builder blocks=blocks options=options operators=operators}}`);
+  assert.equal(this.$('.expression-result').text().trim(), 'x:1');
+  assert.ok(this.$('.expression-blocks > div:nth-child(1)').text().trim().startsWith('Select'));
+  Ember.run(() => document.querySelector('.expression-blocks > div:nth-child(5) .wrap').click());
+  assert.equal(this.$('.expression-blocks > div:nth-child(1)').text().trim(), '(');
+  assert.notEqual(this.$('.expression-blocks > div:nth-child(2)').text().trim(), 'Delete');
+  assert.notEqual(this.$('.expression-blocks > div:nth-child(2)').text().trim(), '()');
+  assert.ok(this.$('.expression-blocks > div:nth-child(2)').text().trim().startsWith('Select'));
+  assert.equal(this.$('.expression-blocks > div:nth-child(5)').text().trim(), ')');
+  assert.equal(this.$('.expression-result').text().trim(), '( x:1 )');
+});

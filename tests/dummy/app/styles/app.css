@@ -23,8 +23,6 @@ html {
 }
 
 .block {
-  border-radius: 2px;
-  border: solid 1px #f87060;
   min-width: 5vw;
   min-height: 3vh;
 }
@@ -32,10 +30,19 @@ html {
 .block-type {
   padding: 1rem;
   background-color: #f87060;
+  border-radius: 2px;
+  border: solid 1px #f87060;
 }
 
 .block-value {
   padding: 1rem;
+  border-radius: 2px;
+  border: solid 1px #f87060;
+}
+
+.block-wrapper {
+  font-size: 5rem;
+  color: rgba(16, 37, 66, 0.5);
 }
 
 .block-operator {
@@ -56,6 +63,6 @@ html {
   border-bottom: solid 1px #ccd7d6;
 }
 
-.add {
+.add, .wrap {
   cursor: pointer;
 }

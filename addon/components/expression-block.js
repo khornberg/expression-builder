@@ -22,8 +22,9 @@ export default Ember.Component.extend({
     return Ember.isPresent(Ember.get(this, 'optionKeys'));
   }),
   hasDelete: Ember.computed(function() {
-    return Ember.isPresent(Ember.get(this, 'delete'));
+    return Ember.isPresent(Ember.get(this, 'delete')) && !Ember.get(this, 'isWrapper');
   }),
+  isWrapper: Ember.computed.notEmpty('block.wrapper'),
   isComplete: Ember.computed.and('hasType', 'hasValue'),
   optionKeys: Ember.computed('options', function() {
     return Object.keys(Ember.getWithDefault(this, 'options', []));

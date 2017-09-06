@@ -5,6 +5,7 @@
   {{/each}}
   {{#if hasOptions}}
     {{component addComponent add=(action "add")}}
+    {{component wrapComponent wrap=(action "wrap")}}
   {{/if}}
   </div>
   {{component resultComponent expression=expression}}

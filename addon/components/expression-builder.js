@@ -5,12 +5,16 @@ export default Ember.Component.extend({
   layout,
   tagName: '',
   addComponent: 'expression-add',
+  wrapComponent: 'expression-wrap',
   resultComponent: 'expression-result',
   hasOptions: Ember.computed.notEmpty('options'),
 
   expression: Ember.computed('blocks.@each.{id,type,value,operator}', function() {
     let blocks = Ember.get(this, 'blocks');
     let kv = blocks.map((block, i) => {
+      if (block.wrapper) {
+        return `${block.wrapper}`;
+      }
       let showOperator = i + 1 < blocks.length;
       let operator = showOperator && block.operator ? ` ${block.operator}` : '';
       let type = block.type || '';
@@ -23,7 +27,9 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    this.set('blocks', Ember.A([{}]));
+    if (!Ember.get(this, 'blocks')) {
+      this.set('blocks', Ember.A([{}]));
+    }
   },
 
   setBlockProperties(blocks, block) {
@@ -55,6 +61,12 @@ export default Ember.Component.extend({
     delete(index) {
       let blocks = Ember.get(this, 'blocks');
       blocks.removeAt(index);
+    },
+
+    wrap() {
+      let blocks = Ember.get(this, 'blocks');
+      blocks.insertAt(0, {wrapper: '('})
+      blocks.pushObject({wrapper: ')'});
     }
   }
 });
