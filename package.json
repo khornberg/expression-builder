@@ -1,6 +1,6 @@
 {
   "name": "expression-builder",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Build expressions with a GUI",
   "keywords": [
     "ember-addon",
@@ -10,12 +10,12 @@
     "builder"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "Kyle Hornberg",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": "https://github.com/khornberg/expression-builder",
   "scripts": {
     "build": "ember build",
     "start": "ember server",

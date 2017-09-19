@@ -5,8 +5,13 @@ export default Ember.Component.extend({
   layout,
   tagName: '',
   addComponent: 'expression-add',
+  deleteComponent: 'expression-delete',
+  typeComponent: 'expression-builder-select',
+  valueComponent: 'expression-builder-select',
+  operatorComponent: 'expression-builder-select',
   resultComponent: 'expression-result',
   hasOptions: Ember.computed.notEmpty('options'),
+  showExpression: true,
 
   expression: Ember.computed('blocks.@each.{id,type,value,operator}', function() {
     let blocks = Ember.get(this, 'blocks');
@@ -18,6 +23,9 @@ export default Ember.Component.extend({
       return `${type}${value}${operator}`
     })
     let exp = kv.join(' ');
+    if(Ember.get(this, 'expressionChanged')) {
+      Ember.get(this, 'expressionChanged')(exp);
+    }
     return exp;
   }),
 
