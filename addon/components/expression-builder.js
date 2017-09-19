@@ -19,6 +19,9 @@ export default Ember.Component.extend({
       return `${type}${value}${operator}`
     })
     let exp = kv.join(' ');
+    if(Ember.get(this, 'expressionChanged')) {
+      Ember.get(this, 'expressionChanged')(exp);
+    }
     return exp;
   }),
 
