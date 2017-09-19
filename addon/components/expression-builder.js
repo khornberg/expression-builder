@@ -11,6 +11,7 @@ export default Ember.Component.extend({
   operatorComponent: 'expression-builder-select',
   resultComponent: 'expression-result',
   hasOptions: Ember.computed.notEmpty('options'),
+  hasExpression: Ember.computed.and('expression', 'showExpression'),
   showExpression: true,
 
   expression: Ember.computed('blocks.@each.{id,type,value,operator}', function() {
