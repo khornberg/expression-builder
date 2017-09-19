@@ -5,10 +5,6 @@ export default Ember.Component.extend({
   layout,
   tagName: '',
   emptyText: 'Pass options to select type',
-  typeComponent: 'expression-builder-select',
-  valueComponent: 'expression-builder-select',
-  operatorComponent: 'expression-builder-select',
-  deleteComponent: 'expression-delete',
   id: Ember.computed(function() {
     return Ember.guidFor(Ember.getProperties(this, 'type', 'value'));
   }),

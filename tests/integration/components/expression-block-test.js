@@ -26,14 +26,14 @@ test('empty block does show if there are no options', function(assert) {
 
 test('block shows type selection if there are options', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
-  this.render(hbs`{{expression-block options=options}}`);
+  this.render(hbs`{{expression-block options=options deleteComponent='expression-delete' typeComponent='expression-builder-select' valueComponent='expression-builder-select' operatorComponent='expression-builder-select'}}`);
   assert.equal(this.$('select > option:first-child').text().trim(), 'Select type');
   assert.equal(this.$('select > option:last-child').text().trim(), 'y');
 });
 
 test('can select type option', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
-  this.render(hbs`{{expression-block options=options}}`);
+  this.render(hbs`{{expression-block options=options deleteComponent='expression-delete' typeComponent='expression-builder-select' valueComponent='expression-builder-select' operatorComponent='expression-builder-select'}}`);
   assert.equal(this.$('select > option:selected').text().trim(), 'Select type');
   this.$('option[value="y"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
@@ -41,7 +41,7 @@ test('can select type option', function(assert) {
 
 test('after type is selected one can select value option based on the type', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
-  this.render(hbs`{{expression-block options=options}}`);
+  this.render(hbs`{{expression-block options=options deleteComponent='expression-delete' typeComponent='expression-builder-select' valueComponent='expression-builder-select' operatorComponent='expression-builder-select'}}`);
   assert.equal(this.$('select > option:selected').text().trim(), 'Select type');
   assert.notOk(this.$('.block-value select').length);
   this.$('option[value="y"]').prop('selected', true).trigger('change');
@@ -53,7 +53,7 @@ test('after type is selected one can select value option based on the type', fun
 
 test('values change based on type', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
-  this.render(hbs`{{expression-block options=options}}`);
+  this.render(hbs`{{expression-block options=options deleteComponent='expression-delete' typeComponent='expression-builder-select' valueComponent='expression-builder-select' operatorComponent='expression-builder-select'}}`);
   assert.equal(this.$('select > option:selected').text().trim(), 'Select type');
   assert.notOk(this.$('.block-value select').length);
   this.$('option[value="y"]').prop('selected', true).trigger('change');
@@ -67,7 +67,7 @@ test('values change based on type', function(assert) {
 
 test('types change based on options', function(assert) {
   this.set('options', {'y': [2, 3]});
-  this.render(hbs`{{expression-block options=options}}`);
+  this.render(hbs`{{expression-block options=options deleteComponent='expression-delete' typeComponent='expression-builder-select' valueComponent='expression-builder-select' operatorComponent='expression-builder-select'}}`);
   assert.equal(this.$('.block-type select > option').text().trim(), 'Select typey');
   this.set('options', {'x': [1]});
   assert.equal(this.$('.block-type select > option').text().trim(), 'Select typex');
@@ -75,7 +75,7 @@ test('types change based on options', function(assert) {
 
 test('type changes clear selected value', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
-  this.render(hbs`{{expression-block options=options}}`);
+  this.render(hbs`{{expression-block options=options deleteComponent='expression-delete' typeComponent='expression-builder-select' valueComponent='expression-builder-select' operatorComponent='expression-builder-select'}}`);
   assert.equal(this.$('select > option:selected').text().trim(), 'Select type');
   assert.notOk(this.$('.block-value select').length);
   this.$('option[value="y"]').prop('selected', true).trigger('change');
@@ -92,7 +92,7 @@ test('type changes clear selected value', function(assert) {
 test('operator enabled if type and value are set', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   this.set('operators', ['-', '+']);
-  this.render(hbs`{{expression-block options=options operators=operators}}`);
+  this.render(hbs`{{expression-block options=options operators=operators deleteComponent='expression-delete' typeComponent='expression-builder-select' valueComponent='expression-builder-select' operatorComponent='expression-builder-select'}}`);
   assert.notOk(this.$('.block-operator').length);
   this.$('option[value="y"]').prop('selected', true).trigger('change');
   this.$('option[value="2"]').prop('selected', true).trigger('change');
@@ -103,7 +103,7 @@ test('operator shown if present', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   this.set('operators', ['-', '+']);
   this.set('block', {'operator': '+'})
-  this.render(hbs`{{expression-block options=options operators=operators block=block}}`);
+  this.render(hbs`{{expression-block options=options operators=operators block=block deleteComponent='expression-delete' typeComponent='expression-builder-select' valueComponent='expression-builder-select' operatorComponent='expression-builder-select'}}`);
   this.$('option[value="y"]').prop('selected', true).trigger('change');
   this.$('option[value="2"]').prop('selected', true).trigger('change');
   assert.ok(this.$('.block-operator').length);
@@ -113,7 +113,7 @@ test('operator shown if present', function(assert) {
 test('can change operator', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   this.set('operators', ['-', '+']);
-  this.render(hbs`{{expression-block options=options operators=operators}}`);
+  this.render(hbs`{{expression-block options=options operators=operators deleteComponent='expression-delete' typeComponent='expression-builder-select' valueComponent='expression-builder-select' operatorComponent='expression-builder-select'}}`);
   this.$('option[value="y"]').prop('selected', true).trigger('change');
   this.$('option[value="2"]').prop('selected', true).trigger('change');
   assert.ok(this.$('.block-operator').length);
@@ -125,7 +125,7 @@ test('can change operator from passed in ', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   this.set('operators', ['-', '+']);
   this.set('block', {'operator': '+'})
-  this.render(hbs`{{expression-block options=options operators=operators block=block}}`);
+  this.render(hbs`{{expression-block options=options operators=operators block=block deleteComponent='expression-delete' typeComponent='expression-builder-select' valueComponent='expression-builder-select' operatorComponent='expression-builder-select'}}`);
   this.$('option[value="y"]').prop('selected', true).trigger('change');
   this.$('option[value="2"]').prop('selected', true).trigger('change');
   assert.ok(this.$('.block-operator').length);
