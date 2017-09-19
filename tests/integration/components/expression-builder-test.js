@@ -119,3 +119,13 @@ test('expressionChanged fired when expression changes', function(assert) {
   assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
   assert.equal(exp, 'y');
 });
+
+test('expressionChanged fired when expression changes even if showExpression is false', function(assert) {
+  this.set('options', {'x': [1], 'y': [2, 3]});
+  var exp = null;
+  this.set('expressionChanged', (expression) => {exp=expression});
+  this.render(hbs`{{expression-builder options=options expressionChanged=expressionChanged showExpression=false}}`);
+  this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
+  assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
+  assert.equal(exp, 'y');
+});
