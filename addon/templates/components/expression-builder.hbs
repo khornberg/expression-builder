@@ -7,5 +7,7 @@
     {{component addComponent add=(action "add")}}
   {{/if}}
   </div>
-  {{component resultComponent expression=expression}}
+  {{#if showExpression}}
+    {{component resultComponent expression=expression}}
+  {{/if}}
 </div>

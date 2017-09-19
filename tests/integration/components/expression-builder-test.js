@@ -101,3 +101,11 @@ test('can delete block', function(assert) {
   Ember.run(() => document.querySelector('.expression-blocks > div:nth-child(6) .delete').click());
   assert.equal(this.$('.expression-result').text().trim(), 'y:3');
 });
+
+test('does not have expression if showExpression is false', function(assert) {
+  this.set('options', {'x': [1], 'y': [2, 3]});
+  this.render(hbs`{{expression-builder options=options showExpression=false}}`);
+  this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
+  assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
+  assert.notOk(this.$('.expression-result').text().trim().length);
+});
