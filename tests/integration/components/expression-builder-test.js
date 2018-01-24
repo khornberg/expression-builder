@@ -140,3 +140,12 @@ test('expressionChanged only fired when expression is something', function(asser
   assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
   assert.equal(exp, 'y');
 });
+
+test('can select a different index from the value', function(assert) {
+  Ember.getOwner(this).resolveRegistration('config:environment').expressionBuilder.valueIndex = 1
+  this.set('options', {'x': [1], 'y': [2, 3]});
+  this.render(hbs`{{expression-builder options=options valueComponent='expression-builder-select-array'}}`);
+  this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
+  this.$('.block-value option[value="3"]').prop('selected', true).trigger('change');
+  assert.equal(this.$('.expression-result').text().trim(), 'y:3');
+});
