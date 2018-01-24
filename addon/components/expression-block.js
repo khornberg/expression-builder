@@ -75,7 +75,7 @@ export default Ember.Component.extend({
 
     valueChanged(...args) {
       let index = Ember.getOwner(this).resolveRegistration('config:environment').expressionBuilderValueIndex;
-      Ember.set(this, 'value', args[index]);
+      Ember.set(this, 'value', args[index || 0]);
       this.updateBuilder();
     },
 
