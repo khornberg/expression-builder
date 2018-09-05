@@ -4,6 +4,7 @@ import layout from '../templates/components/expression-builder';
 export default Ember.Component.extend({
   layout,
   tagName: '',
+  blockComponent: 'expression-block',
   addComponent: 'expression-add',
   deleteComponent: 'expression-delete',
   typeComponent: 'expression-builder-select',
