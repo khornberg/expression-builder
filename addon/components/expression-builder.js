@@ -33,7 +33,7 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    this.set('blocks', Ember.A([{}]));
+    this.set('blocks', Ember.A(this.preset || [{}]));
   },
 
   setBlockProperties(blocks, block) {
