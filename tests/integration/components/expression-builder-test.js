@@ -149,3 +149,11 @@ test('can select a different index from the value', function(assert) {
   this.$('.block-value option[value="3"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.expression-result').text().trim(), 'y:3');
 });
+
+test('can define a preset expression', function(assert) {
+  Ember.getOwner(this).resolveRegistration('config:environment').expressionBuilder.valueIndex = 1
+  this.set('options', {'x': [1], 'y': [2, 3]});
+  this.set('exp', [ { id: '', type: 'y', value: 3 } ]);
+  this.render(hbs`{{expression-builder options=options valueComponent='expression-builder-select-array' preset=exp}}`);
+  assert.equal(this.$('.expression-result').text().trim(), 'y:3');
+});
