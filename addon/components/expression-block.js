@@ -6,7 +6,7 @@ export default Ember.Component.extend({
   tagName: '',
   emptyText: 'Pass options to select type',
   id: Ember.computed(function() {
-    return Ember.guidFor(Ember.getProperties(this, 'type', 'value'));
+    return Ember.get(this, 'block.id') || Ember.guidFor(Ember.getProperties(this, 'type', 'value'));
   }),
   hasType: Ember.computed('type', function() {
     return Ember.getWithDefault(this, 'type', false);
