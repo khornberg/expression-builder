@@ -157,3 +157,13 @@ test('can define a preset expression', function(assert) {
   this.render(hbs`{{expression-builder options=options valueComponent='expression-builder-select-array' preset=exp}}`);
   assert.equal(this.$('.expression-result').text().trim(), 'y:3');
 });
+
+test('correctly changes block of predefined expression', function(assert) {
+  Ember.getOwner(this).resolveRegistration('config:environment').expressionBuilder.valueIndex = 1
+  this.set('options', {'x': [1], 'y': [2, 3]});
+  this.set('exp', [ { id: 'un', type: 'y', value: 3 }, { id: 'du', type: 'x', value: 1 } ]);
+  this.render(hbs`{{expression-builder options=options valueComponent='expression-builder-select-array' preset=exp}}`);
+  assert.equal(this.$('.expression-result').text().trim(), 'y:3 x:1');
+  this.$('.block-value option[value="2"]').prop('selected', true).trigger('change');
+  assert.equal(this.$('.expression-result').text().trim(), 'y:2 x:1');
+});
