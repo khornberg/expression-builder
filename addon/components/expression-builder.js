@@ -25,10 +25,21 @@ export default Ember.Component.extend({
       return `${type}${value}${operator}`
     })
     let exp = kv.join(' ');
-    if(exp && Ember.get(this, 'expressionChanged')) {
-      Ember.get(this, 'expressionChanged')(exp);
+    if(blocks && Ember.get(this, 'expressionChanged')) {
+      Ember.get(this, 'expressionChanged')(blocks);
     }
     return exp;
+  }),
+
+  expressionOutput(output) {
+    if(output && Ember.get(this, 'expressionChanged')) {
+      Ember.get(this, 'expressionChanged')(output);
+    }
+  },
+
+  ledgerArray: Ember.computed('blocks.@each.{id,type,value,operator}', function() {
+    this.expressionOutput(Ember.get(this, 'blocks'))
+    return Ember.get(this, 'blocks');
   }),
 
   init() {

