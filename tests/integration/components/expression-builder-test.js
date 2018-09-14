@@ -110,63 +110,63 @@ test('does not have expression if showExpression is false', function(assert) {
   assert.notOk(this.$('.expression-result').text().trim().length);
 });
 
-test('expressionChangedCriterion fired when expression changes', function(assert) {
+test('expressionChanged fired and returns arg1 when expression changes', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   var exp = null;
-  this.set('expressionChangedCriterion', (expression) => {exp=expression});
-  this.render(hbs`{{expression-builder options=options expressionChangedCriterion=expressionChangedCriterion}}`);
+  this.set('expressionChanged', (expression) => {exp=expression});
+  this.render(hbs`{{expression-builder options=options expressionChanged=expressionChanged}}`);
   this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
   assert.equal(exp, 'y');
 });
 
-test('expressionChangedCriterion fired when expression changes even if showExpression is false', function(assert) {
+test('expressionChanged fired and returns arg1 when expression changes even if showExpression is false', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   var exp = null;
-  this.set('expressionChangedCriterion', (expression) => {exp=expression});
-  this.render(hbs`{{expression-builder options=options expressionChangedCriterion=expressionChangedCriterion showExpression=false}}`);
+  this.set('expressionChanged', (expression) => {exp=expression});
+  this.render(hbs`{{expression-builder options=options expressionChanged=expressionChanged showExpression=false}}`);
   this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
   assert.equal(exp, 'y');
 });
 
-test('expressionChangedCriterion only fired when expression is something', function(assert) {
+test('expressionChanged only fired and returns arg1 when expression is something', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   var exp = 'previous value';
-  this.set('expressionChangedCriterion', (expression) => {exp=expression});
-  this.render(hbs`{{expression-builder options=options expressionChangedCriterion=expressionChangedCriterion showExpression=false}}`);
+  this.set('expressionChanged', (expression) => {exp=expression});
+  this.render(hbs`{{expression-builder options=options expressionChanged=expressionChanged showExpression=false}}`);
   assert.equal(exp, 'previous value');
   this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
   assert.equal(exp, 'y');
 });
 
-test('expressionChangedBlock fired when expression changes', function(assert) {
+test('expressionChanged fired and returns arg2 when expression changes', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   var exp = null;
-  this.set('expressionChangedBlock', (expression) => {exp=expression});
-  this.render(hbs`{{expression-builder options=options expressionChangedBlock=expressionChangedBlock}}`);
+  this.set('expressionChanged', (expression, blocks) => {exp=blocks});
+  this.render(hbs`{{expression-builder options=options expressionChanged=expressionChanged}}`);
   this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
   assert.equal(exp, '[object Object]');
 });
 
-test('expressionChangedBlock fired when expression changes even if showExpression is false', function(assert) {
+test('expressionChanged fired and returns arg2 when expression changes even if showExpression is false', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   var exp = null;
-  this.set('expressionChangedBlock', (expression) => {exp=expression});
-  this.render(hbs`{{expression-builder options=options expressionChangedBlock=expressionChangedBlock showExpression=false}}`);
+  this.set('expressionChanged', (expression, blocks) => {exp=blocks});
+  this.render(hbs`{{expression-builder options=options expressionChanged=expressionChanged showExpression=false}}`);
   this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
   assert.equal(exp, '[object Object]');
 });
 
-test('expressionChangedBlock only fired when expression is something', function(assert) {
+test('expressionChanged only fired and returns arg2 when expression is something', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   var exp = 'previous value';
-  this.set('expressionChangedBlock', (expression) => {exp=expression});
-  this.render(hbs`{{expression-builder options=options expressionChangedBlock=expressionChangedBlock showExpression=false}}`);
-  assert.equal(exp, '[object Object]');
+  this.set('expressionChanged', (expression, blocks) => {exp=blocks});
+  this.render(hbs`{{expression-builder options=options expressionChanged=expressionChanged showExpression=false}}`);
+  assert.equal(exp, 'previous value');
   this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
   assert.equal(exp, '[object Object]');

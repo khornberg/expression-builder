@@ -25,11 +25,8 @@ export default Ember.Component.extend({
       return `${type}${value}${operator}`
     })
     let exp = kv.join(' ');
-    if(exp && Ember.get(this, 'expressionChangedCriterion')) {
-      Ember.get(this, 'expressionChangedCriterion')(exp);
-    }
-    if(blocks && Ember.get(this, 'expressionChangedBlock')) {
-      Ember.get(this, 'expressionChangedBlock')(blocks);
+    if(exp && Ember.get(this, 'expressionChanged')) {
+      Ember.get(this, 'expressionChanged')(exp, blocks);
     }
     return exp;
   }),
