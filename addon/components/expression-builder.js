@@ -26,7 +26,7 @@ export default Ember.Component.extend({
     })
     let exp = kv.join(' ');
     if(exp && Ember.get(this, 'expressionChanged')) {
-      Ember.get(this, 'expressionChanged')(exp);
+      Ember.get(this, 'expressionChanged')(exp, blocks);
     }
     return exp;
   }),

@@ -141,6 +141,37 @@ test('expressionChanged only fired when expression is something', function(asser
   assert.equal(exp, 'y');
 });
 
+test('expressionChanged fired and returns blocks object when expression changes', function(assert) {
+  this.set('options', {'x': [1], 'y': [2, 3]});
+  var exp = null;
+  this.set('expressionChanged', (expression, blocks) => {exp=JSON.stringify(blocks)});
+  this.render(hbs`{{expression-builder options=options expressionChanged=expressionChanged}}`);
+  this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
+  assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
+  assert.ok(exp.indexOf('"type":"y"') >= 0);
+});
+
+test('expressionChanged fired and returns blocks object when expression changes even if showExpression is false', function(assert) {
+  this.set('options', {'x': [1], 'y': [2, 3]});
+  var exp = null;
+  this.set('expressionChanged', (expression, blocks) => {exp=JSON.stringify(blocks)});
+  this.render(hbs`{{expression-builder options=options expressionChanged=expressionChanged showExpression=false}}`);
+  this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
+  assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
+  assert.ok(exp.indexOf('"type":"y"') >= 0);
+});
+
+test('expressionChanged only fired and returns blocks object when expression is something', function(assert) {
+  this.set('options', {'x': [1], 'y': [2, 3]});
+  var exp = 'previous value';
+  this.set('expressionChanged', (expression, blocks) => {exp=JSON.stringify(blocks)});
+  this.render(hbs`{{expression-builder options=options expressionChanged=expressionChanged showExpression=false}}`);
+  assert.equal(exp, 'previous value');
+  this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
+  assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
+  assert.ok(exp.indexOf('"type":"y"') >= 0);
+});
+
 test('can select a different index from the value', function(assert) {
   Ember.getOwner(this).resolveRegistration('config:environment').expressionBuilder.valueIndex = 1
   this.set('options', {'x': [1], 'y': [2, 3]});
