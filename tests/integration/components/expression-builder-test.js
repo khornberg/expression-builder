@@ -110,7 +110,7 @@ test('does not have expression if showExpression is false', function(assert) {
   assert.notOk(this.$('.expression-result').text().trim().length);
 });
 
-test('expressionChanged fired and returns arg1 when expression changes', function(assert) {
+test('expressionChanged fired when expression changes', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   var exp = null;
   this.set('expressionChanged', (expression) => {exp=expression});
@@ -120,7 +120,7 @@ test('expressionChanged fired and returns arg1 when expression changes', functio
   assert.equal(exp, 'y');
 });
 
-test('expressionChanged fired and returns arg1 when expression changes even if showExpression is false', function(assert) {
+test('expressionChanged fired when expression changes even if showExpression is false', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   var exp = null;
   this.set('expressionChanged', (expression) => {exp=expression});
@@ -130,7 +130,7 @@ test('expressionChanged fired and returns arg1 when expression changes even if s
   assert.equal(exp, 'y');
 });
 
-test('expressionChanged only fired and returns arg1 when expression is something', function(assert) {
+test('expressionChanged only fired when expression is something', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   var exp = 'previous value';
   this.set('expressionChanged', (expression) => {exp=expression});
@@ -141,7 +141,7 @@ test('expressionChanged only fired and returns arg1 when expression is something
   assert.equal(exp, 'y');
 });
 
-test('expressionChanged fired and returns arg2 when expression changes', function(assert) {
+test('expressionChanged fired and returns blocks object when expression changes', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   var exp = null;
   this.set('expressionChanged', (expression, blocks) => {exp=JSON.stringify(blocks)});
@@ -151,7 +151,7 @@ test('expressionChanged fired and returns arg2 when expression changes', functio
   assert.ok(exp.indexOf('"type":"y"') >= 0);
 });
 
-test('expressionChanged fired and returns arg2 when expression changes even if showExpression is false', function(assert) {
+test('expressionChanged fired and returns blocks object when expression changes even if showExpression is false', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   var exp = null;
   this.set('expressionChanged', (expression, blocks) => {exp=JSON.stringify(blocks)});
@@ -161,7 +161,7 @@ test('expressionChanged fired and returns arg2 when expression changes even if s
   assert.ok(exp.indexOf('"type":"y"') >= 0);
 });
 
-test('expressionChanged only fired and returns arg2 when expression is something', function(assert) {
+test('expressionChanged only fired and returns blocks object when expression is something', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   var exp = 'previous value';
   this.set('expressionChanged', (expression, blocks) => {exp=JSON.stringify(blocks)});
