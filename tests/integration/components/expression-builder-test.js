@@ -144,32 +144,32 @@ test('expressionChanged only fired and returns arg1 when expression is something
 test('expressionChanged fired and returns arg2 when expression changes', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   var exp = null;
-  this.set('expressionChanged', (expression, blocks) => {exp=blocks});
+  this.set('expressionChanged', (expression, blocks) => {exp=JSON.stringify(blocks)});
   this.render(hbs`{{expression-builder options=options expressionChanged=expressionChanged}}`);
   this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
-  assert.equal(exp, '[object Object]');
+  assert.ok(exp.indexOf('"type":"y"') >= 0);
 });
 
 test('expressionChanged fired and returns arg2 when expression changes even if showExpression is false', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   var exp = null;
-  this.set('expressionChanged', (expression, blocks) => {exp=blocks});
+  this.set('expressionChanged', (expression, blocks) => {exp=JSON.stringify(blocks)});
   this.render(hbs`{{expression-builder options=options expressionChanged=expressionChanged showExpression=false}}`);
   this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
-  assert.equal(exp, '[object Object]');
+  assert.ok(exp.indexOf('"type":"y"') >= 0);
 });
 
 test('expressionChanged only fired and returns arg2 when expression is something', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   var exp = 'previous value';
-  this.set('expressionChanged', (expression, blocks) => {exp=blocks});
+  this.set('expressionChanged', (expression, blocks) => {exp=JSON.stringify(blocks)});
   this.render(hbs`{{expression-builder options=options expressionChanged=expressionChanged showExpression=false}}`);
   assert.equal(exp, 'previous value');
   this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
-  assert.equal(exp, '[object Object]');
+  assert.ok(exp.indexOf('"type":"y"') >= 0);
 });
 
 test('can select a different index from the value', function(assert) {
