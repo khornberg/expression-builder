@@ -14,10 +14,12 @@
     </div>
   {{/if}}
 </div>
-{{#if isComplete}}
-  <div class="block-operator">
-    {{component operatorComponent options=operatorOptions changeAction=(action "operatorChanged") selected=block.operator}}
-   </div>
+{{#if multipleBlocks}}
+  {{#if isComplete}}
+    <div class="block-operator">
+      {{component operatorComponent options=operatorOptions changeAction=(action "operatorChanged") selected=block.operator}}
+     </div>
+  {{/if}}
 {{/if}}
 {{#if hasDelete}}
   <div class="block-action">

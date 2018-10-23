@@ -41,17 +41,18 @@ test('do not show operation when there is not another block', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   this.set('operators', ['-', '+']);
   this.render(hbs`{{expression-builder options=options operators=operators}}`);
-  assert.notOk(this.$('.block-operator').length);
+  assert.equal(this.$('.block-operator').length, '0');
   this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.block-type select > option:selected').text().trim(), 'y');
   assert.equal(this.$('.expression-result').text().trim(), 'y');
   this.$('.block-value option[value="3"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.expression-result').text().trim(), 'y:3');
-  assert.ok(this.$('.block-operator').length);
+  Ember.run(() => document.querySelector('.add').click());
+  assert.equal(this.$('.block-operator').length, '1');
   this.$('option[value="-"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.block-operator option:selected').text().trim(), '-');
-  assert.ok(this.$('.block-operator').length);
-  assert.equal(this.$('.expression-result').text().trim(), 'y:3');
+  assert.equal(this.$('.block-operator').length, '1');
+  assert.equal(this.$('.expression-result').text().trim(), 'y:3 -');
 });
 
 test('can add another block', function(assert) {
@@ -61,8 +62,8 @@ test('can add another block', function(assert) {
   assert.notOk(this.$('.block-operator').length);
   this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
   this.$('.block-value option[value="3"]').prop('selected', true).trigger('change');
-  this.$('.block-operator option[value="OR"]').prop('selected', true).trigger('change');
   Ember.run(() => document.querySelector('.add').click());
+  this.$('.block-operator option[value="OR"]').prop('selected', true).trigger('change');
   this.$('.expression-blocks > div:nth-child(4) > .block-type option[value="x"]').prop('selected', true).trigger('change');
   this.$('.expression-blocks > div:nth-child(4) > .block-value option[value="1"]').prop('selected', true).trigger('change');
   this.$('.expression-blocks > div:nth-child(5) option[value="OR"]').prop('selected', true).trigger('change');
@@ -73,6 +74,27 @@ test('can add another block', function(assert) {
   assert.equal(this.$('.expression-result').text().trim(), 'y:3 OR x:1 OR x:1');
 });
 
+test('can change operator block', function(assert) {
+  this.set('options', {'x': [1], 'y': [2, 3]});
+  this.set('operators', ['OR', 'AND']);
+  this.render(hbs`{{expression-builder options=options operators=operators}}`);
+  assert.notOk(this.$('.block-operator').length);
+  this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
+  this.$('.block-value option[value="3"]').prop('selected', true).trigger('change');
+  Ember.run(() => document.querySelector('.add').click());
+  this.$('.block-operator option[value="OR"]').prop('selected', true).trigger('change');
+  assert.equal(this.$('.block-operator option:selected').text().trim(), 'OR');
+  this.$('.block-operator option[value="AND"]').prop('selected', true).trigger('change');
+  assert.equal(this.$('.block-operator option:selected').text().trim(), 'AND');
+  this.$('.expression-blocks > div:nth-child(4) > .block-type option[value="x"]').prop('selected', true).trigger('change');
+  this.$('.expression-blocks > div:nth-child(4) > .block-value option[value="1"]').prop('selected', true).trigger('change');
+  this.$('.expression-blocks > div:nth-child(5) option[value="OR"]').prop('selected', true).trigger('change');
+  assert.equal(this.$('.expression-result').text().trim(), 'y:3 AND x:1');
+  Ember.run(() => document.querySelector('.add').click());
+  this.$('.expression-blocks > div:nth-child(7) > .block-type option[value="x"]').prop('selected', true).trigger('change');
+  this.$('.expression-blocks > div:nth-child(7) > .block-value option[value="1"]').prop('selected', true).trigger('change');
+  assert.equal(this.$('.expression-result').text().trim(), 'y:3 AND x:1 OR x:1');
+});
 test('values change based on type', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   this.set('operators', ['OR', 'AND']);
@@ -92,8 +114,8 @@ test('can delete block', function(assert) {
   this.render(hbs`{{expression-builder options=options operators=operators}}`);
   this.$('.block-type option[value="y"]').prop('selected', true).trigger('change');
   this.$('.block-value option[value="3"]').prop('selected', true).trigger('change');
-  this.$('.block-operator option[value="OR"]').prop('selected', true).trigger('change');
   Ember.run(() => document.querySelector('.add').click());
+  this.$('.block-operator option[value="OR"]').prop('selected', true).trigger('change');
   this.$('.expression-blocks > div:nth-child(4) > .block-type option[value="x"]').prop('selected', true).trigger('change');
   this.$('.expression-blocks > div:nth-child(4) > .block-value option[value="1"]').prop('selected', true).trigger('change');
   this.$('.expression-blocks > div:nth-child(5) option[value="OR"]').prop('selected', true).trigger('change');
