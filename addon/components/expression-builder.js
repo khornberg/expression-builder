@@ -14,6 +14,9 @@ export default Ember.Component.extend({
   hasOptions: Ember.computed.notEmpty('options'),
   hasExpression: Ember.computed.and('expression', 'showExpression'),
   showExpression: true,
+  multipleBlocks: Ember.computed('blocks.@each', function() {
+    return this.get('blocks').length > 1;
+  }),
 
   expression: Ember.computed('blocks.@each.{id,type,value,operator}', function() {
     let blocks = Ember.get(this, 'blocks');
