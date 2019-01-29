@@ -23,7 +23,7 @@
     "docs": "ember build -p && rm -r docs && rsync -av --progress dist/ docs --exclude tests"
   },
   "dependencies": {
-    "ember-cli-babel": "7.4.0",
+    "ember-cli-babel": "7.4.1",
     "ember-cli-htmlbars": "3.0.1"
   },
   "devDependencies": {
