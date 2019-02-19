@@ -28,8 +28,11 @@ export default Ember.Component.extend({
       return `${type}${value}${operator}`
     })
     let exp = kv.join(' ');
-    if(exp && Ember.get(this, 'expressionChanged')) {
+    if(this.notFirstRun && Ember.get(this, 'expressionChanged')) {
       Ember.get(this, 'expressionChanged')(exp, blocks);
+    }
+    if (!this.notFirstRun) {
+      this.set('notFirstRun', true);
     }
     return exp;
   }),
