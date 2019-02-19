@@ -115,6 +115,7 @@ test('can change operator block', function(assert) {
   this.$('.expression-blocks > div:nth-child(7) > .block-value option[value="1"]').prop('selected', true).trigger('change');
   assert.equal(this.$('.expression-result').text().trim(), 'y:3 AND x:1 OR x:1');
 });
+
 test('values change based on type', function(assert) {
   this.set('options', {'x': [1], 'y': [2, 3]});
   this.set('operators', ['OR', 'AND']);
