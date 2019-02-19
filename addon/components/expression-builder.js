@@ -28,6 +28,10 @@ export default Ember.Component.extend({
       return `${type}${value}${operator}`
     })
     let exp = kv.join(' ');
+    if (blocks.length === 0) {
+      exp = '';
+    }
+    // can remove exp below and get rid of if block above, but then two tests fail
     if(exp && Ember.get(this, 'expressionChanged')) {
       Ember.get(this, 'expressionChanged')(exp, blocks);
     }
